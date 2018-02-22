@@ -17,6 +17,7 @@ class App extends Component {
       userInput: '',
       searchedMovies: null,
       numOfMovies: 0,
+      user:null,
     }
   
     this.updateUserInput = this.updateUserInput.bind(this);
@@ -40,6 +41,15 @@ class App extends Component {
       console.log("listName",res.data)
       this.setState({listName:res.data})
     })
+
+    axios.get('/api/user-data').then(res => {
+      this.setState({ user: res.data.user });
+    })
+  }
+
+  login() {
+    window.location = `https://${process.env.REACT_APP_AUTH0_DOMAIN}/login?client=${process.env.REACT_APP_AUTH0_CLIENT_ID}&scope=openid%20profile%20email&redirect_uri=${encodeURIComponent(window.location.origin)}/auth/callback`
+
   }
 
   shouldComponentUpdate(prevProps, prevState) {
@@ -57,7 +67,7 @@ class App extends Component {
   
   //Search for the movie using userInput 
   searchForMovie() {
-    const API_KEY = "";
+    const API_KEY = "945a8ef7bd0dea97770e4b0bdfe53d86";
     axios.get(`https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&language=en-US&query=${this.state.userInput}&page=1&include_adult=false`).then(res => {
     
       this.setState({searchedMovies:res.data.results});
@@ -66,7 +76,7 @@ class App extends Component {
 
   //returns search results and adds the searchedMovies component each
   getSearchResults() {
-    let searchResults = <p>Search for something</p>
+    let searchResults = '';
     if (this.state.searchedMovies !== null) {
       searchResults = <SearchedMovies searchMovieList={this.state.searchedMovies} updateWatchList={this.updateWatchList}/>
     }
@@ -137,6 +147,7 @@ class App extends Component {
       document.getElementById('inputDiv').style.display = "block";
       document.getElementById('movieList').style.backgroundColor = "#333";
       document.getElementById('movieList').style.zIndex = "200";
+      // document.getElementById('movieList').style.position = "relative";
     }
     else {
       document.getElementById('movieListDiv').style.display = "none";
@@ -151,10 +162,13 @@ class App extends Component {
 
 
   render() {
-
+    const { user } = this.state;
+    const userData = JSON.stringify(user);
     return (
       <div className="App">
-        <Header headerOrFooter="header"/>
+        <Header headerOrFooter="header" />
+        <button onClick={this.login}>Login</button>
+        <div>{userData || null}</div>
         <div id="movieList" className="movieList">
           <div className="numCounter">
             <button id="numCounterBtn" className="numCounterBtn" type="checkbox" onClick={this.showDiv} >{this.state.numOfMovies}</button>
@@ -166,8 +180,8 @@ class App extends Component {
         </div>
         <ul>
         </ul>
-        <input onChange={(e) => this.updateUserInput(e.target.value)} />
-        <button onClick={this.searchForMovie}>Search For Movie</button>
+        <input placeholder="Search for something" className="searchInput"  onChange={(e) => this.updateUserInput(e.target.value)} />
+        <button className="searchBtn" onClick={this.searchForMovie}>Search For Movie</button>
         <div className="searchResultsDiv">
           {this.getSearchResults()}
         </div>  

@@ -7,6 +7,7 @@
     "body-parser": "^1.18.2",
     "cors": "^2.8.4",
     "express": "^4.16.2",
+    "express-session": "^1.15.6",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-scripts": "1.1.0"
@@ -23,5 +24,12 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "proxy":"http://localhost:6000"
+  "proxy": {
+    "auth/callback": {
+      "target": "http://localhost:6000"
+    },
+    "/api": {
+      "target": "http://localhost:6000"
+    }
+  }
 }

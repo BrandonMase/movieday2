@@ -16,8 +16,8 @@ class SearchedMovies extends Component {
 
     //sets the div container for the each of the searched movies
     getSearchListHTML() {
-        let html = <p>Nothing found</p>
-        if (this.props.searchMovieList !== []) {
+        let html = <p>Nothing found. Please try again </p>
+        if (this.props.searchMovieList.length !== 0) {
             html = this.props.searchMovieList.map(e => {
                 if (e.poster_path) {
                     return (

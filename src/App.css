@@ -43,6 +43,12 @@ body{
   clear:both;
 }
 
+.searchResultsDiv p{
+  color:white;
+  letter-spacing: 5px;
+  font-weight: 600;
+}
+
 .movieDiv > div{
 min-width: 250px;
 display:flex;
@@ -123,6 +129,7 @@ color:#00ff37;
 }
 
 .movieList{
+  /* overflow:scroll; */
   position: relative;
   display:block;
   width:30%;
@@ -130,7 +137,7 @@ color:#00ff37;
   /* border:solid white 2px; */
   background-color:transparent;
   padding:10px 0;
-  z-index: 200;
+  z-index: 150;
   position:fixed;
   margin-left:5px;
   /* min-height:480px; */
@@ -164,7 +171,7 @@ color:#00ff37;
 
 .numCounterBtn:hover{
   color:#ffe600;
-  background-color:#444;
+  /* background-color:#444; */
   border-radius: 100%;
   cursor: pointer;
 
@@ -198,6 +205,10 @@ color:#00ff37;
   background-color:#333;
 
 
+}
+
+.searchResultsDiv{
+  min-height:700px;
 }
 
 ul{
@@ -250,4 +261,26 @@ ul{
 
 .header > div{
   color:white;
+}
+
+.searchInput{
+  padding:10px;
+  width:500px;
+  font-size:20px;
+}
+
+.searchBtn{
+  margin-bottom:10px;
+  margin-left:10px;
+  color:white;
+  background-color:orangered;
+  border:none;
+  padding:13px;
+  font-weight:600;
+}
+
+.searchBtn:active{
+  background-color:rgb(243, 115, 69);
+  /* border-top:solid orangered 2px; */
+  /* border-right:solid orangered 2px; */
 }
